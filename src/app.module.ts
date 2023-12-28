@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
-import { DeletedUsersModule } from './deleted-users/deleted-users.module';
-import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './modules/users/users.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { DeletedUsersModule } from './modules/deleted-users/deleted-users.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
@@ -13,7 +13,10 @@ import { AuthModule } from './auth/auth.module';
         uri: process.env.MONGO_URI,
       }),
     }),
-    UsersModule, DeletedUsersModule, AuthModule],
+    UsersModule,
+    AuthModule,
+    DeletedUsersModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
