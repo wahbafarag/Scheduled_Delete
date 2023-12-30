@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { Connection } from 'mongoose';
-import { JwtService } from '@nestjs/jwt';
 import { InjectConnection } from '@nestjs/mongoose';
 import * as bcrypt from 'bcryptjs';
 import { UsersService } from '../../users/services/users.service';
 import { DeletedUsersService } from '../../deleted-users/service/deleted-users.service';
 import { LoginPayloadWithUsernameDto } from '../dtos/loginPayload.dto';
 import { ServiceRes } from '../interface/service-response.interface';
+import { TokenService } from '../../token/service/token.service';
 
 @Injectable()
 export class LoginService {
   constructor(
-    private readonly jwtService: JwtService,
     @InjectConnection() private nativeMongooseConnection: Connection,
     private readonly usersService: UsersService,
     private readonly deleteUsersService: DeletedUsersService,
+    private readonly tokenService: TokenService,
   ) {}
 
   async validateUser(username: string, password: string) {
@@ -54,10 +54,17 @@ export class LoginService {
       const userDoc = userRef['_doc'];
       const { password, ...result } = userDoc;
 
+      const tokens = await this.tokenService.generateTokens({
+        userId: userDoc._id,
+        source: user.source,
+      });
+
       serviceResponse.data = {
         ...result,
-        token: this.jwtService.sign({ sub: userDoc._id }),
+        accessToken: tokens.data.accessToken,
+        refreshToken: tokens.data.refreshToken,
       };
+
       //
     } catch (err) {
       serviceResponse.error = err;

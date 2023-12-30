@@ -15,6 +15,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: process.env.JWT_SECRET,
+      passReqToCallback: true,
       ignoreExpiration: false,
       algorithms: ['HS256'],
     });
@@ -22,16 +23,16 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: any) {
     const user = await this.userService.findOne({ id: payload._id });
-    console.log(user);
-    // check if user have requested to delete his account , and still have valid token
+    // console.log(user);
+    // check if user have requested to delete his account, and still have a valid token
     if (user.deletedAt !== null)
       throw new UnauthorizedException(errorCodes.INVALID_USER);
 
     return {
-      userId: payload.sub,
-      username: payload.username,
-      email: payload.email,
-      role: payload.role,
+      userId: user._id,
+      username: user.username,
+      email: user.email,
+      role: user.role,
     };
   }
 }

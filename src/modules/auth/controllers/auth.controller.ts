@@ -31,7 +31,7 @@ export class AuthController {
     if (!res) {
       throw new InternalSeverException(errorCodes.UNEXPECTED_ERROR);
     } else if (res.error) {
-      throw new BadRequestException(res.error);
+      throw new BadRequestException(res.error.message);
     }
     return new OkResponseService(res.data);
   }
