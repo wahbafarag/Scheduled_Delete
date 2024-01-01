@@ -19,7 +19,7 @@ import { TokenController } from './controller/token.controller';
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1d' },
+      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN_MS },
     }),
     HashModule,
   ],

@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { HashService } from '../../common/hash/service/hash.service';
 import { Types } from 'mongoose';
 import { errorCodes } from '../../../utils/error-codes';
+import { envConfigurations } from '../../../../env/env.configuration';
 
 @Injectable()
 export class TokenService {
@@ -48,12 +49,6 @@ export class TokenService {
         payload.refreshToken,
       );
 
-      // const valid = await this.hashService.compareHash(
-      //   refreshTokenHash,
-      //   payload.userId,
-      //   process.env.HASH_SECRET,
-      // );
-
       const validToken = await this.tokenRepository.findOne({
         userId: new Types.ObjectId(payload.userId),
         refreshTokenHash: refreshTokenHash,
@@ -76,7 +71,8 @@ export class TokenService {
         {
           refreshTokenHash: await this.createRefreshTokenHash(refreshToken),
           expiresAt: new Date(
-            Date.now() + parseInt(process.env.REFRESH_TOKEN_EXPIRES_IN_MS, 10),
+            Date.now() +
+              parseInt(envConfigurations().tokens.refresh.expiresIn, 10),
           ),
         },
       );
@@ -125,18 +121,24 @@ export class TokenService {
   // helper functions
   async createNewTokens(payload: any) {
     const accessToken = this.jwtService.sign(
-      { sub: payload.userId },
       {
-        secret: process.env.JWT_SECRET,
-        expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN_MS,
+        sub: payload.userId,
+        token_type: envConfigurations().tokens.access.token_type,
+      },
+      {
+        secret: envConfigurations().jwt.secret,
+        expiresIn: envConfigurations().tokens.access.expiresIn,
       },
     );
 
     const refreshToken = this.jwtService.sign(
-      { sub: payload.userId },
       {
-        secret: process.env.REFRESH_TOKEN_SECRET,
-        expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN_MS,
+        sub: payload.userId,
+        token_type: envConfigurations().tokens.refresh.token_type,
+      },
+      {
+        secret: envConfigurations().tokens.refresh.secret,
+        expiresIn: envConfigurations().tokens.refresh.expiresIn,
       },
     );
 
@@ -146,7 +148,7 @@ export class TokenService {
   async createRefreshTokenHash(refreshToken: any) {
     return await this.hashService.cryptoHash(
       refreshToken,
-      process.env.HASH_SECRET,
+      envConfigurations().hash.secret,
     );
   }
 }
