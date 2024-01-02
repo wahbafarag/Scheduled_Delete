@@ -32,4 +32,8 @@ export const errorCodes = {
     code: 'ALREADY_LOGGED_OUT',
     message: 'User already logged out',
   },
+  INVALID_TOKEN: {
+    code: 'INVALID_TOKEN',
+    message: 'Invalid Token',
+  },
 };
