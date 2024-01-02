@@ -7,6 +7,7 @@ import { User } from '../schema/user.schema';
 import { ServiceRes } from '../../auth/interface/service-response.interface';
 import { deletionTime } from '../constants/constants';
 import { DeletedUsersService } from '../../deleted-users/service/deleted-users.service';
+import { NodemailerAdapterService } from '../../mail/service/nodemailer-adapter.service';
 
 @Injectable()
 export class UsersService {
@@ -14,6 +15,7 @@ export class UsersService {
     private readonly usersRepository: UserRepository,
     private readonly deleteUsersService: DeletedUsersService,
     @InjectConnection() private nativeMongooseConnection: Connection,
+    private readonly nodemailerAdapter: NodemailerAdapterService,
   ) {}
 
   async create(user: CreateUserDto): Promise<User> {
@@ -64,6 +66,12 @@ export class UsersService {
         await session.endSession();
       });
 
+      // send email - adapter
+      await this.nodemailerAdapter.sendAccountDeletionEmail({
+        email: userDoc.email,
+        username: userDoc.username,
+      });
+      
       serviceResponse.data = {
         message:
           'Your Account is set to be deleted in 30 days. Come back soon!',

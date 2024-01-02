@@ -14,7 +14,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 
     if (request.headers.authorization) {
       const isAccessToken = this.isAccessToken(request.headers.authorization);
-
+      console.log('isAccessToken', isAccessToken);
       if (!isAccessToken) {
         throw new UnauthorizedException(errorCodes.INVALID_TOKEN);
       }
@@ -40,6 +40,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
         console.log('decodedToken', decodedToken.token_type);
         return decodedToken && decodedToken.token_type === 'access';
       } catch (error) {
+        console.log('error', error);
         return false;
       }
     }

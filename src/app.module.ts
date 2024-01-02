@@ -9,6 +9,7 @@ import { TokenModule } from './modules/token/token.module';
 import { HashModule } from './modules/common/hash/hash.module';
 import { ConfigModule } from '@nestjs/config';
 import { envConfigurations } from '../env/env.configuration';
+import { MailModule } from './modules/mail/mail.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { envConfigurations } from '../env/env.configuration';
     DeletedUsersModule,
     TokenModule,
     HashModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

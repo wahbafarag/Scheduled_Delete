@@ -4,12 +4,14 @@ import { UsersService } from '../../users/services/users.service';
 import { CreateUserDto } from '../../users/dtos/create-user.dto';
 import { ServiceRes } from '../interface/service-response.interface';
 import { TokenService } from '../../token/service/token.service';
+import { SendGridAdapterService } from '../../mail/service/sendGrid-adapter.service';
 
 @Injectable()
 export class SignupService {
   constructor(
     private readonly userService: UsersService,
     private readonly tokenService: TokenService,
+    private readonly sendGridAdapter: SendGridAdapterService,
   ) {}
 
   async signup(payload: CreateUserDto) {
@@ -22,6 +24,13 @@ export class SignupService {
         userId: user._id,
         source: payload.source,
       });
+
+      // send email - adapter
+      await this.sendGridAdapter.sendWelcomeEmail({
+        email: user.email,
+        username: user.username,
+      });
+
       serviceResponse.data = {
         user: user,
         accessToken: tokens.data.accessToken,

@@ -7,9 +7,10 @@ import { LocalStrategy } from './strategy/local.strategy';
 import { JwtStrategy } from './strategy/jwt.strategy';
 import { SignupService } from './service/signup.service';
 import { TokenModule } from '../token/token.module';
+import { MailModule } from '../mail/mail.module';
 
 @Module({
-  imports: [UsersModule, DeletedUsersModule, TokenModule],
+  imports: [UsersModule, DeletedUsersModule, TokenModule, MailModule],
   providers: [LoginService, SignupService, LocalStrategy, JwtStrategy],
   controllers: [AuthController],
 })
