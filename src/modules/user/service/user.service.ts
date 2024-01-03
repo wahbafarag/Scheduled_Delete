@@ -7,6 +7,8 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { ServiceRes } from '../../common/service-response.interface';
 import { DeletedUserService } from '../../delete-user/service/delete-user.service';
 import { deletionTime } from '../constants/constants';
+import { SendGridAdapterService } from '../../mail/mail/service/sendGrid-adapter.service';
+import { NodemailerAdapterService } from '../../mail/mail/service/nodemailer-adapter.service';
 
 @Injectable()
 export class UserService {
@@ -14,6 +16,8 @@ export class UserService {
     private readonly userRepository: UserRepository,
     @InjectConnection() private nativeMongooseConnection: Connection,
     private readonly deleteUsersService: DeletedUserService,
+    private readonly sendGridAdapterService: SendGridAdapterService,
+    private readonly nodeMailerAdapterService: NodemailerAdapterService,
   ) {}
 
   async create(user: CreateUserDto): Promise<User> {
@@ -62,6 +66,16 @@ export class UserService {
         });
 
         await session.endSession();
+      });
+
+      // await this.nodeMailerAdapterService.sendAccountDeletionEmail({
+      //   email: userDoc.email,
+      //   username: userDoc.username,
+      // });
+
+      await this.sendGridAdapterService.sendAccountDeletionEmail({
+        email: userDoc.email,
+        username: userDoc.username,
       });
 
       serviceResponse.data = {

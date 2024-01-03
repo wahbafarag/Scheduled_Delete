@@ -9,6 +9,7 @@ import {
   IsEmailAlreadyExistConstraint,
   IsUsernameAlreadyExistConstraint,
 } from './decorators/custom.decorators';
+import { MailModule } from '../mail/mail/mail.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import {
       },
     ]),
     DeletedUserModule,
+    MailModule,
   ],
   providers: [
     UserService,

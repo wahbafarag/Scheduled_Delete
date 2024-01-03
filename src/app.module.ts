@@ -9,6 +9,7 @@ import { DeletedUserModule } from './modules/delete-user/delete-user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { TokenModule } from './modules/token/token.module';
 import { HashModule } from './modules/common/hash/hash.module';
+import { MailModule } from './modules/mail/mail/mail.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { HashModule } from './modules/common/hash/hash.module';
     AuthModule,
     TokenModule,
     HashModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

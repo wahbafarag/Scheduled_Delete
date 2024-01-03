@@ -8,9 +8,10 @@ import { AccessStrategy } from './strategy/jwt.strategy';
 import { LocalStrategy } from './strategy/local.strategy';
 import { RefreshStrategy } from './strategy/refresh.strategy';
 import { TokenModule } from '../token/token.module';
+import { MailModule } from '../mail/mail/mail.module';
 
 @Module({
-  imports: [UserModule, DeletedUserModule, TokenModule],
+  imports: [UserModule, DeletedUserModule, TokenModule, MailModule],
   providers: [
     LoginService,
     SignupService,
