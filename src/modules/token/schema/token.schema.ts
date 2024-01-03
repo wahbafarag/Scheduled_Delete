@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
-import { USER_COLLECTION_NAME } from '../../users/schema/user.schema';
-import { TokenSourceEnum } from '../constants/token.enum';
+import { USER_COLLECTION_NAME } from '../../user/schema/user.schema';
+import { TokenSourceEnum } from '../../auth/enums/enums';
 
 export const TOKEN_COLLECTION_NAME = 'token';
 
@@ -16,7 +16,7 @@ export class Token {
   refreshTokenHash: string;
 
   @Prop({ required: true, enum: TokenSourceEnum })
-  source: string; // web, mobile
+  source: string;
 
   @Prop({
     type: Date,
@@ -30,5 +30,4 @@ export class Token {
 }
 
 export const tokenSchema = SchemaFactory.createForClass(Token);
-// source and refresh token hash are unique 'one for web and one for mobile'
-tokenSchema.index({ userId: 1, source: 1 }, { unique: true });
+// tokenSchema.index({ userId: 1, source: 1 }, { unique: true });

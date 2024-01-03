@@ -4,7 +4,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { envConfigurations } from '../../../../env/env.configuration';
 
 @Injectable()
-export class AccessStrategy extends PassportStrategy(Strategy, 'jwt-access') {
+export class RefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
@@ -14,7 +14,7 @@ export class AccessStrategy extends PassportStrategy(Strategy, 'jwt-access') {
       ignoreExpiration: false,
       algorithms: ['HS256'],
       passReqToCallback: true,
-      secretOrKey: envConfigurations().tokens.access.secret,
+      secretOrKey: envConfigurations().tokens.refresh.secret,
     });
   }
 

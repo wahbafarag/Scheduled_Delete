@@ -6,19 +6,24 @@ import { UnauthorizedException } from '../../../exceptions/unauthorized.exceptio
 import { errorCodes } from '../../../utils/error-codes';
 
 @Injectable()
-export class LocalStrategy extends PassportStrategy(Strategy) {
-  constructor(private readonly authService: LoginService) {
+export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
+  constructor(private readonly loginService: LoginService) {
     super({
-      usernameField: 'username',
+      usernameField: 'email',
       passwordField: 'password',
     });
   }
 
-  async validate(username: string, password: string): Promise<any> {
-    const user = await this.authService.validateUser(username, password);
-    if (!user) {
-      throw new UnauthorizedException(errorCodes.INVALID_CREDENTIALS);
-    }
-    return user;
+  async validate(email: string, password: string): Promise<any> {
+    console.log('LocalStrategy.validate()');
+    const user = await this.loginService.validateUser(email, password);
+    if (!user) throw new UnauthorizedException(errorCodes.INVALID_CREDENTIALS);
+    return {
+      userId: user.userId,
+      email: user.email,
+      source: user.source,
+      role: user.role,
+      token_type: user.token_type,
+    };
   }
 }

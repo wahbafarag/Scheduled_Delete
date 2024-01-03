@@ -1,15 +1,14 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './modules/users/users.module';
-import { AuthModule } from './modules/auth/auth.module';
-import { DeletedUsersModule } from './modules/deleted-users/deleted-users.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { TokenModule } from './modules/token/token.module';
-import { HashModule } from './modules/common/hash/hash.module';
 import { ConfigModule } from '@nestjs/config';
 import { envConfigurations } from '../env/env.configuration';
-import { MailModule } from './modules/mail/mail.module';
+import { UserModule } from './modules/user/user.module';
+import { DeletedUserModule } from './modules/delete-user/delete-user.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { TokenModule } from './modules/token/token.module';
+import { HashModule } from './modules/common/hash/hash.module';
 
 @Module({
   imports: [
@@ -20,15 +19,14 @@ import { MailModule } from './modules/mail/mail.module';
     }),
     MongooseModule.forRootAsync({
       useFactory: () => ({
-        uri: process.env.MONGO_URI,
+        uri: envConfigurations().mongodb.MONGO_URI,
       }),
     }),
-    UsersModule,
+    UserModule,
+    DeletedUserModule,
     AuthModule,
-    DeletedUsersModule,
     TokenModule,
     HashModule,
-    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],
