@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { SendGridService } from './sendGrid.service';
-import { IMailInterface } from '../interface/mail.interface';
-import { MailPayload } from '../interface/mail-payload.interface';
+import { IMailInterface } from '../../interface/mail-adapter.interface';
+import { MailPayload } from '../../interface/mail-payload.interface';
 
 @Injectable()
 export class SendGridAdapterService implements IMailInterface {

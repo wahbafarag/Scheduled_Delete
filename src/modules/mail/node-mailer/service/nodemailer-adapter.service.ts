@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { IMailInterface } from '../interface/mail.interface';
+import { IMailInterface } from '../../interface/mail-adapter.interface';
 import { NodemailerService } from './nodemailer.service';
-import { MailPayload } from '../interface/mail-payload.interface';
+import { MailPayload } from '../../interface/mail-payload.interface';
 
 @Injectable()
 export class NodemailerAdapterService implements IMailInterface {

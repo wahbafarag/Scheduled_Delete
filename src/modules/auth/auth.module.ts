@@ -8,10 +8,17 @@ import { AccessStrategy } from './strategy/jwt.strategy';
 import { LocalStrategy } from './strategy/local.strategy';
 import { RefreshStrategy } from './strategy/refresh.strategy';
 import { TokenModule } from '../token/token.module';
-import { MailModule } from '../mail/mail/mail.module';
+import { NodeMailerModule } from '../mail/node-mailer/node-mailer.module';
+import { SendGridModule } from '../mail/send-grid/send-grid.module';
 
 @Module({
-  imports: [UserModule, DeletedUserModule, TokenModule, MailModule],
+  imports: [
+    UserModule,
+    DeletedUserModule,
+    TokenModule,
+    NodeMailerModule,
+    SendGridModule,
+  ],
   providers: [
     LoginService,
     SignupService,

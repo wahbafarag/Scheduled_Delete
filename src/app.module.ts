@@ -9,7 +9,8 @@ import { DeletedUserModule } from './modules/delete-user/delete-user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { TokenModule } from './modules/token/token.module';
 import { HashModule } from './modules/common/hash/hash.module';
-import { MailModule } from './modules/mail/mail/mail.module';
+import { NodeMailerModule } from './modules/mail/node-mailer/node-mailer.module';
+import { SendGridModule } from './modules/mail/send-grid/send-grid.module';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { MailModule } from './modules/mail/mail/mail.module';
     AuthModule,
     TokenModule,
     HashModule,
-    MailModule,
+    NodeMailerModule,
+    SendGridModule,
   ],
   controllers: [AppController],
   providers: [AppService],

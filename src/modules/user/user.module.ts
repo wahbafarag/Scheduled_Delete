@@ -9,7 +9,8 @@ import {
   IsEmailAlreadyExistConstraint,
   IsUsernameAlreadyExistConstraint,
 } from './decorators/custom.decorators';
-import { MailModule } from '../mail/mail/mail.module';
+import { SendGridModule } from '../mail/send-grid/send-grid.module';
+import { NodeMailerModule } from '../mail/node-mailer/node-mailer.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { MailModule } from '../mail/mail/mail.module';
       },
     ]),
     DeletedUserModule,
-    MailModule,
+    SendGridModule,
+    NodeMailerModule,
   ],
   providers: [
     UserService,

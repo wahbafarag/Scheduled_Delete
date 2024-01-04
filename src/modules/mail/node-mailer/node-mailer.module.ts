@@ -1,15 +1,11 @@
 import { Module } from '@nestjs/common';
-import { SendGridService } from './service/sendGrid.service';
-import { ConfigModule } from '@nestjs/config';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { envConfigurations } from '../../../../env/env.configuration';
-import { NodemailerAdapterService } from './service/nodemailer-adapter.service';
 import { NodemailerService } from './service/nodemailer.service';
-import { SendGridAdapterService } from './service/sendGrid-adapter.service';
+import { NodemailerAdapterService } from './service/nodemailer-adapter.service';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
     MailerModule.forRoot({
       transport: {
         host: envConfigurations().mail.nodeMailer.host,
@@ -26,12 +22,7 @@ import { SendGridAdapterService } from './service/sendGrid-adapter.service';
       },
     }),
   ],
-  providers: [
-    SendGridService,
-    SendGridAdapterService,
-    NodemailerService,
-    NodemailerAdapterService,
-  ],
-  exports: [SendGridAdapterService, NodemailerAdapterService],
+  providers: [NodemailerService, NodemailerAdapterService],
+  exports: [NodemailerAdapterService],
 })
-export class MailModule {}
+export class NodeMailerModule {}

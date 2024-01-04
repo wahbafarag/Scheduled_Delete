@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as SendGrid from '@sendgrid/mail';
 import { envConfigurations } from '../../../../../env/env.configuration';
-import { MailPayload } from '../interface/mail-payload.interface';
+import { MailPayload } from '../../interface/mail-payload.interface';
 
 @Injectable()
 export class SendGridService {
