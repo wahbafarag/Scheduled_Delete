@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { IMailInterface } from '../interface/mail-adapter.interface';
-import { NodemailerService } from '../node-mailer/service/nodemailer.service';
+import { NodemailerService } from '../../nodemailer/service/nodemailer.service';
 import { MailPayload } from '../interface/mail-payload.interface';
 import { envConfigurations } from '../../../../env/env.configuration';
 

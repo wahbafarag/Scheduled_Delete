@@ -8,8 +8,9 @@ import { AccessStrategy } from './strategy/jwt.strategy';
 import { LocalStrategy } from './strategy/local.strategy';
 import { RefreshStrategy } from './strategy/refresh.strategy';
 import { TokenModule } from '../token/token.module';
-import { NodeMailerModule } from '../mail/node-mailer/node-mailer.module';
-import { SendGridModule } from '../mail/send-grid/send-grid.module';
+import { NodeMailerModule } from '../nodemailer/node-mailer.module';
+import { SendGridModule } from '../sendGrid/send-grid.module';
+import { MailModule } from '../mail/mail.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { SendGridModule } from '../mail/send-grid/send-grid.module';
     TokenModule,
     NodeMailerModule,
     SendGridModule,
+    MailModule,
   ],
   providers: [
     LoginService,

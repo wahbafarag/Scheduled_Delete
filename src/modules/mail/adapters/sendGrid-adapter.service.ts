@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { SendGridService } from '../send-grid/service/sendGrid.service';
+import { SendGridService } from '../../sendGrid/service/sendGrid.service';
 import { IMailInterface } from '../interface/mail-adapter.interface';
 import { MailPayload } from '../interface/mail-payload.interface';
 import { envConfigurations } from '../../../../env/env.configuration';

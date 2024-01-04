@@ -7,8 +7,8 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { ServiceRes } from '../../common/service-response.interface';
 import { DeletedUserService } from '../../delete-user/service/delete-user.service';
 import { deletionTime } from '../constants/constants';
-import { SendGridAdapterService } from '../../mail/adpters/sendGrid-adapter.service';
-import { NodemailerAdapterService } from '../../mail/adpters/nodemailer-adapter.service';
+import { SendGridAdapterService } from '../../mail/adapters/sendGrid-adapter.service';
+import { NodemailerAdapterService } from '../../mail/adapters/nodemailer-adapter.service';
 
 @Injectable()
 export class UserService {

@@ -4,8 +4,8 @@ import { UserService } from '../../user/service/user.service';
 import { CreateUserDto } from '../../user/dto/create-user.dto';
 import { ServiceRes } from '../../common/service-response.interface';
 import { TokenService } from '../../token/service/token.service';
-import { SendGridAdapterService } from '../../mail/adpters/sendGrid-adapter.service';
-import { NodemailerAdapterService } from '../../mail/adpters/nodemailer-adapter.service';
+import { SendGridAdapterService } from '../../mail/adapters/sendGrid-adapter.service';
+import { NodemailerAdapterService } from '../../mail/adapters/nodemailer-adapter.service';
 
 @Injectable()
 export class SignupService {
