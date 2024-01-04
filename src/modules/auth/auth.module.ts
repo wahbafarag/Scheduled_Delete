@@ -1,25 +1,24 @@
 import { Module } from '@nestjs/common';
+import { AuthController } from './controller/auth.controller';
+import { UserModule } from '../user/user.module';
+import { DeletedUserModule } from '../delete-user/delete-user.module';
 import { LoginService } from './service/login.service';
-import { AuthController } from './controllers/auth.controller';
-import { PassportModule } from '@nestjs/passport';
-import { JwtModule } from '@nestjs/jwt';
-import { UsersModule } from '../users/users.module';
-import { DeletedUsersModule } from '../deleted-users/deleted-users.module';
-import { LocalStrategy } from './strategy/local.strategy';
-import { JwtStrategy } from './strategy/jwt.strategy';
 import { SignupService } from './service/signup.service';
+import { AccessStrategy } from './strategy/jwt.strategy';
+import { LocalStrategy } from './strategy/local.strategy';
+import { RefreshStrategy } from './strategy/refresh.strategy';
+import { TokenModule } from '../token/token.module';
 
 @Module({
-  imports: [
-    PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1d' },
-    }),
-    UsersModule,
-    DeletedUsersModule,
+  imports: [UserModule, DeletedUserModule, TokenModule],
+  providers: [
+    LoginService,
+    SignupService,
+    AccessStrategy,
+    LocalStrategy,
+    RefreshStrategy,
   ],
-  providers: [LoginService, SignupService, LocalStrategy, JwtStrategy],
   controllers: [AuthController],
+  exports: [],
 })
 export class AuthModule {}

@@ -27,4 +27,13 @@ export const errorCodes = {
     code: 'INVALID_USER',
     message: 'Invalid User',
   },
+
+  ALREADY_LOGGED_OUT: {
+    code: 'ALREADY_LOGGED_OUT',
+    message: 'User already logged out',
+  },
+  INVALID_TOKEN: {
+    code: 'INVALID_TOKEN',
+    message: 'Invalid Token',
+  },
 };
