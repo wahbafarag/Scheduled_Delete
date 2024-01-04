@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { envConfigurations } from '../../../../env/env.configuration';
 import { NodemailerService } from './service/nodemailer.service';
-import { NodemailerAdapterService } from './service/nodemailer-adapter.service';
+import { NodemailerAdapterService } from '../adpters/nodemailer-adapter.service';
 
 @Module({
   imports: [

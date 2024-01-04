@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SendGridService } from './service/sendGrid.service';
-import { SendGridAdapterService } from './service/sendGrid-adapter.service';
+import { SendGridAdapterService } from '../adpters/sendGrid-adapter.service';
 
 @Module({
   imports: [ConfigModule.forRoot()],
