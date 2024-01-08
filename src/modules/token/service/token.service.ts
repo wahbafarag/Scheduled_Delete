@@ -14,7 +14,7 @@ export class TokenService {
   ) {}
 
   async generateNewTokens(payload: any) {
-    let serviceResponse: ServiceRes = { data: null, error: null };
+    const serviceResponse: ServiceRes = { data: null, error: null };
     try {
       //
       const tokens = await this.helperFunctions.createNewTokens(payload);
@@ -38,7 +38,7 @@ export class TokenService {
   }
 
   async renewTokens(payload: any) {
-    let serviceResponse: ServiceRes = { data: null, error: null };
+    const serviceResponse: ServiceRes = { data: null, error: null };
     try {
       //
       const refreshTokenHash = await this.helperFunctions.hashRefreshToken(
@@ -88,8 +88,8 @@ export class TokenService {
   }
 
   async invalidateToken(payload: any) {
-    let serviceResponse: ServiceRes = { data: null, error: null };
-    
+    const serviceResponse: ServiceRes = { data: null, error: null };
+
     try {
       const refreshTokenHash = await this.helperFunctions.hashRefreshToken(
         payload.refreshToken,
