@@ -6,6 +6,6 @@ export function sortObjFields(object: any) {
   for (const key of sortedKeys) {
     sortedObject[key] = object[key];
   }
-  
+
   return sortedObject;
 }

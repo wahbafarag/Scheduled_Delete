@@ -14,7 +14,7 @@ export class AccessGuard
 
   async canActivate(context: ExecutionContext) {
     const mainCanActivate = (await super.canActivate(context)) as boolean;
-    
+
     const request = context.switchToHttp().getRequest();
     const user: TokenPayload = request.user;
 

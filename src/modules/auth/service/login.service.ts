@@ -20,7 +20,7 @@ export class LoginService {
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.userService.findOne({ email });
     //
-    
+
     if (user && (await bcrypt.compare(pass, user.password))) {
       if (user.deletedAt !== null && new Date(user.deletedAt) > new Date()) {
         //
@@ -44,7 +44,7 @@ export class LoginService {
   }
 
   async login(payload: LoginPayload) {
-    let serviceResponse: ServiceRes = { data: null, error: null };
+    const serviceResponse: ServiceRes = { data: null, error: null };
     try {
       //
 
@@ -52,7 +52,7 @@ export class LoginService {
         email: payload.email,
       });
 
-      let userDoc = userRef['_doc'];
+      const userDoc = userRef['_doc'];
       const { password, ...result } = userDoc;
 
       const tokens = await this.tokenService.generateNewTokens({

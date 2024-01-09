@@ -29,7 +29,7 @@ export class UserService {
   }
 
   async findAll(filter: any) {
-    let serviceResponse: ServiceRes = { data: null, error: null };
+    const serviceResponse: ServiceRes = { data: null, error: null };
     try {
       serviceResponse.data = await this.userRepository.FindAll(filter);
     } catch (err) {
@@ -43,7 +43,7 @@ export class UserService {
   }
 
   async requestUserDeletion(user: any) {
-    let serviceResponse: ServiceRes = { data: null, error: null };
+    const serviceResponse: ServiceRes = { data: null, error: null };
     try {
       const userDoc = await this.findOne({ _id: user.userId });
       const session = await this.nativeMongooseConnection.startSession();

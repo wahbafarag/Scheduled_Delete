@@ -12,6 +12,7 @@ import { HashModule } from './modules/common/hash/hash.module';
 import { NodeMailerModule } from './modules/nodemailer/node-mailer.module';
 import { SendGridModule } from './modules/sendGrid/send-grid.module';
 import { MailModule } from './modules/mail/mail.module';
+import { ProductModule } from './modules/product/product.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { MailModule } from './modules/mail/mail.module';
     NodeMailerModule,
     SendGridModule,
     MailModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService],
