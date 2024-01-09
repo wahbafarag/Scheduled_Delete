@@ -1,5 +1,6 @@
 import {
   IsDate,
+  IsEmpty,
   IsEnum,
   IsNotEmpty,
   IsNumber,
@@ -30,8 +31,8 @@ export class CreateProductDto {
 
   @IsDate()
   @IsNotEmpty()
-  expirationDate: Date;
+  expirationDate: any;
 
-  // @IsNotEmpty()
-  // owner: string;
+  @IsEmpty()
+  owner: string;
 }

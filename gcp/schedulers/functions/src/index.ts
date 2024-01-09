@@ -23,23 +23,19 @@ export const changeProductStatus = functions.pubsub
     try {
       const connection = await getMongodbConnection();
       const Product = connection.model('Product', productSchema);
-      const products = await Product.find({});
 
-      const allProducts = products.map(async (product) => {
-        //
-        const isExpired =
-          new Date(product.expirationDate).getTime() < new Date().getTime();
-        //
-        if (product.quantity === 0 || isExpired) {
-          await Product.updateOne(
-            { _id: product._id },
-            { status: 'unavailable' },
-          );
-        }
-      });
+      let today = new Date();
+      today.setHours(0, 0, 0, 0);
 
-      //
-      await Promise.all(allProducts);
+      await Product.updateMany(
+        {
+          expirationDate: {
+            $lte: new Date(today.getTime() + 24 * 60 * 60 * 1000),
+            $gte: today,
+          },
+        },
+        { status: 'unavailable' },
+      );
     } catch (error) {
       console.log(error);
     }

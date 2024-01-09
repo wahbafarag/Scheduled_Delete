@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
@@ -18,13 +19,7 @@ export class ProductController {
   @UseGuards(AccessGuard)
   @Post()
   async create(@Body(ValidationPipe) body: any, @CurrentUser() user: any) {
-    return await this.productService.create({
-      ...body,
-      owner: user.userId,
-      expirationDate: new Date(
-        Date.now() + 1000 * 60 * 60 * 24 * 2,
-      ).toISOString(), // utc
-    });
+    return await this.productService.create(body, user);
   }
 
   @Get(':id')
@@ -33,7 +28,7 @@ export class ProductController {
   }
 
   // test purposes
-  @Post('reduce/:id')
+  @Put(':id/reduce')
   async reduceQuantity(@Param('id') id: string) {
     return await this.productService.reduceQuantity({ _id: id });
   }

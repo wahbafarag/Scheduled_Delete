@@ -36,4 +36,9 @@ export const errorCodes = {
     code: 'INVALID_TOKEN',
     message: 'Invalid Token',
   },
+
+  productQuantityZero: {
+    code: 'PRODUCT_QUANTITY_ZERO',
+    message: 'Product is not available anymore',
+  },
 };
